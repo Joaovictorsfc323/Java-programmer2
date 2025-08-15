@@ -1,0 +1,10 @@
+package capitulo4;
+
+public enum mes {
+	
+	janeiro, fevereiro, marco, abril, maio, junho, julho, agosto, setembro, outubro,novembro, dezembro
+	
+	
+
+
+}
