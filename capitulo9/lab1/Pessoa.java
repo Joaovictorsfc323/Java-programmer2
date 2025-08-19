@@ -2,10 +2,25 @@ package capitulo9.lab1;
 
 public abstract class Pessoa {
 
-    String nome;
-    int idade;
-    char sexo;
-    Rg rg;
+    private String nome;
+    private int idade;
+    private char sexo;
+    private Rg rg;
+
+    public Pessoa(String nome, int idade, char sexo, Rg rg) {
+        this.nome = nome;
+        this.idade = idade;
+        this.sexo = sexo;
+        this.rg = rg;
+    }
+
+    public Pessoa(String nome, int idade, char sexo, int numeroRg, String dataNasc) {
+        this.nome = nome;
+        this.idade = idade;
+        this.sexo = sexo;
+        this.rg = new Rg(numeroRg,dataNasc);
+
+    }
 
     public String getNome() {
         return nome;
@@ -39,15 +54,8 @@ public abstract class Pessoa {
         this.rg = rg;
     }
 
-    public Pessoa(String nome, int idade, char sexo, Rg rg) {
-        this.nome = nome;
-        this.idade = idade;
-        this.sexo = sexo;
-        this.rg = rg;
-    }
+    public abstract void falar(String mesagem);
 
-    public abstract String falar(String fala, String mostrarDados);
-
-
+    public abstract void mostrarDados();
 
 }

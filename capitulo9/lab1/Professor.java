@@ -2,18 +2,20 @@ package capitulo9.lab1;
 
 public class Professor extends Pessoa {
 
-
     private float salario;
     private String disciplina;
 
 
-    public Professor(String nome, int idade, char sexo, Rg rg) {
+    public Professor(String nome, int idade, char sexo, Rg rg, float salario, String disciplina) {
         super(nome, idade, sexo, rg);
+        this.salario = salario;
+        this.disciplina = disciplina;
     }
 
-    @Override
-    public String falar(String fala, String mostrarDados) {
-        return null;
+    public Professor(String nome, int idade, char sexo, int numeroRg, String dataNasc, float salario, String disciplina) {
+        super(nome, idade, sexo, numeroRg, dataNasc);
+        this.salario = salario;
+        this.disciplina = disciplina;
     }
 
     public float getSalario() {
@@ -32,11 +34,22 @@ public class Professor extends Pessoa {
         this.disciplina = disciplina;
     }
 
-    Rg rg = new Rg("numeroRG","1999");
+    @Override
+    public void falar(String fala){
+        System.out.println(super.getNome() + "Fala");
 
-    public Professor(String nome, int idade, char sexo, int numeroRG, float salario, String disciplina) {
-        super(nome, idade, sexo,numeroRG);
-        this.salario = salario;
-        this.disciplina = disciplina;
+    }
+    @Override
+    public void mostrarDados() {
+        System.out.println("----------Prodessor-------------");
+        System.out.println("nome:" + super.getNome());
+        System.out.println("Idade:" + super.getIdade());
+        System.out.println("sexo:" + super.getSexo());
+        System.out.println("rg-numero:" + super.getRg().getNumero());
+        System.out.println("rg-dataNascimento:" + super.getRg().getDataNasc());
+        System.out.println("Disciplina:" + this.getDisciplina());
+        System.out.println("Salario:" + this.getSalario());
+        System.out.println();
+
     }
 }

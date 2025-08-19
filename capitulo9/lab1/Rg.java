@@ -5,6 +5,11 @@ public class Rg {
     private int numero;
     private String dataNasc;
 
+    public Rg(int numero, String dataNasc) {
+        this.numero = numero;
+        this.dataNasc = dataNasc;
+    }
+
     public Rg(String numeroRG, String dataNasc) {
     }
 
@@ -16,8 +21,11 @@ public class Rg {
         return dataNasc;
     }
 
-    public Rg(int numero, String dataNasc) {
-        this.numero = numero;
+    public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 }
