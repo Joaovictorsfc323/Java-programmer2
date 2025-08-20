@@ -4,6 +4,8 @@ import capitulo7.Produto;
 
 public class TesteArray {
 
+    // Array é como uma caixa com varias gavetas aonde cada gaveta guarda valor
+
     public static void main(String[] args) {
         //posicoes     0 ,1,2,3,4,5,6,7,8,9,10
         int[] array = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
@@ -58,5 +60,16 @@ public class TesteArray {
         for(Produto produto : produtos) {
             produto.imprimir();
         }
+
+        Produto produto1 = new Produto("Suco", "Abacaxi");
+        Produto produto2 = new Produto("Suco", "Laranja");
+        Produto produto3 = new Produto("Suco", "Açai");
+        Produto[] produtos1 = {produto1,produto2,produto3};
+
+        for(Produto elemento : produtos1) {
+            elemento.imprimir();
+        }
+
+
     }
 }
