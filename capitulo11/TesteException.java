@@ -21,12 +21,12 @@ public class TesteException {
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("vc tentou acessar uma posicao que não existe");
         }catch (SomarNumeroNegativosException ex){
-            System.out.println(System.out.println("meu erro que criei:"););
+            System.out.println("meu erro que criei:");
             ex.printStackTrace();
 
 
         } catch(RuntimeException ex) {
-            System.out.println("meu erro que criei:");
+            System.out.println("error:");
             ex.printStackTrace();
 
         }
