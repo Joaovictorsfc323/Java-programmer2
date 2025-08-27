@@ -1,10 +1,10 @@
 package capitulo15;
 
-public class Funcionario {
+public class Funcionario implements Comparable {
 
     private int matricula;
     private String nome;
-    private  String cargo;
+    private String cargo;
     private Double salario;
 
 
@@ -48,6 +48,18 @@ public class Funcionario {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null || this.matricula == 0 || !(obj instanceof Funcionario)) {
+
+            return false;
+
+        }
+        Funcionario funcionarioObj = (Funcionario) obj;
+        return matricula == funcionarioObj.getMatricula();
+
+    }
+
+    @Override
     public String toString() {
         return "Funcionario{" +
                 "matricula=" + matricula +
@@ -57,5 +69,22 @@ public class Funcionario {
                 '}';
     }
 
+    @Override
+    public int compareTo(Object obj) {
 
+        if (obj == null || this.matricula == 0 || !(obj instanceof Funcionario)) {
+
+            return 0;
+        }
+
+        Funcionario funcionario = (Funcionario) obj;
+        if (matricula == funcionario.getMatricula()) {
+            return -1;
+
+        } else if (matricula > funcionario.getMatricula()) {
+            return 1;
+
+        }
+        return -1;
+    }
 }
