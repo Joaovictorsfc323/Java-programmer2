@@ -8,6 +8,8 @@ public interface AlunoRepository {
 
     Aluno buscarAlunoId (int idaAluno);
     List<Aluno> buscarTodos();
+    List<Aluno> buscarPorNome(String nome);
+    Aluno buscarCpf(String cpf);
 
     Aluno salvar (Aluno aluno);
     Aluno atualizar(Aluno aluno);

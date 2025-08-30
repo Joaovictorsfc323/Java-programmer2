@@ -1,9 +1,12 @@
 package capitulo19.teste.repository;
 
 import capitulo19.teste.Aluno;
+import capitulo19.teste.errors.AlunoError;
+import capitulo19.teste.errors.AlunoNotNotFound;
 ;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlunoRepositoryImplementacao implements AlunoRepository {
@@ -31,17 +34,46 @@ public class AlunoRepositoryImplementacao implements AlunoRepository {
             return aluno;
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            throw new AlunoNotNotFound("Erro ao consultar um aluno", e);
+
+        } finally {
+            closeConetion(mysql);
         }
 
 
-        return null;
     }
 
     @Override
     public List<Aluno> buscarTodos() {
-        return null;
+
+        Connection mysql = ConexaoMysql.getConexao();
+        try {
+
+            Statement statement = mysql.createStatement();
+
+            String query = "SELECT * FROM impacta.aluno";
+            ResultSet resultSet = statement.executeQuery(query);
+
+
+            List<Aluno> alunos = new ArrayList<>();
+            while (resultSet.next()) {
+                int idaluno = resultSet.getInt("idaluno");
+                String nome = resultSet.getString("nome");
+                String dataNascimento = resultSet.getString("datanascimento");
+                String cpf = resultSet.getString("cpf");
+                alunos.add(new Aluno(idaluno, nome, dataNascimento, cpf));
+            }
+
+            return alunos;
+
+        } catch (SQLException e) {
+            throw new AlunoError("Erro ao buscar uma lista de alunos", e);
+
+        } finally {
+            closeConetion(mysql);
+        }
     }
+
 
     @Override
     public Aluno salvar(Aluno aluno) {
@@ -60,17 +92,23 @@ public class AlunoRepositoryImplementacao implements AlunoRepository {
                 System.out.println("aluno salvo no mysql");
 
             }
+            return null;
 
         } catch (SQLException e) {
-            e.printStackTrace();
 
+            throw new AlunoError("Erro ao salvar aluno", e);
+
+        } finally {
+            closeConetion(mysql);
         }
 
-        return null;
+
     }
 
     @Override
     public Aluno atualizar(Aluno aluno) {
+
+
         return null;
     }
 
@@ -87,10 +125,91 @@ public class AlunoRepositoryImplementacao implements AlunoRepository {
             return status > 0 ? true : false;
 
         } catch (SQLException e) {
+
+            throw new AlunoError("Erro ao excluir um aluno", e);
+
+        } finally {
+            closeConetion(mysql);
+        }
+
+
+    }
+
+    private void closeConetion(Connection connection) {
+        Connection mysql = ConexaoMysql.getConexao();
+        try {
+            if (connection != null) {
+                connection.close();
+
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }
-
-        return false;
     }
+
+    @Override
+    public List<Aluno> buscarPorNome(String nome) {
+        Connection mysql = ConexaoMysql.getConexao();
+        try {
+            String query = "SELECT * FROM impacta.aluno WHERE  nome LIKE \"%"+ nome +"%\"";
+
+              PreparedStatement statement  = mysql.prepareStatement(query);
+
+//              statement.setString(1,"%" + nome + "&");
+
+            ResultSet resultSet = statement.executeQuery(query);
+
+
+            List<Aluno> alunos = new ArrayList<>();
+            while (resultSet.next()) {
+                int idaluno = resultSet.getInt("idaluno");
+                String nome_ = resultSet.getString("nome");
+                String dataNascimento = resultSet.getString("datanascimento");
+                String cpf = resultSet.getString("cpf");
+                alunos.add(new Aluno(idaluno, nome_, dataNascimento, cpf));
+            }
+
+            return alunos;
+
+        } catch (SQLException e) {
+            throw new AlunoError("Erro ao buscar uma lista de alunos", e);
+
+        } finally {
+            closeConetion(mysql);
+        }
+    }
+
+    @Override
+    public Aluno buscarCpf(String cpf) {
+        Connection mysql = ConexaoMysql.getConexao();
+
+        try {
+
+            Statement statement = mysql.createStatement();
+
+            String query = "SELECT * FROM impacta.aluno WHERE cpf=" + cpf;
+            ResultSet resultSet = statement.executeQuery(query);
+
+
+            Aluno aluno = null;
+            while (resultSet.next()) {
+                int idaluno = resultSet.getInt("idaluno");
+                String nome = resultSet.getString("nome");
+                String dataNascimento = resultSet.getString("datanascimento");
+                String cpfEntity = resultSet.getString("cpf");
+                aluno = new Aluno(idaluno, nome, dataNascimento, cpfEntity);
+            }
+
+            return aluno;
+        } catch (SQLException e) {
+
+            throw new AlunoNotNotFound("Erro ao consultar um aluno", e);
+
+        } finally {
+            closeConetion(mysql);
+        }
+    }
+
+
 }
