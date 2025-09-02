@@ -2,11 +2,27 @@ package capitulo19.br.com.impacta.java.model;
 
 public class Funcionario {
 
-    int id;
-    String nome;
-    double salario;
-    int cargoId;
+    private int id;
+    private String nome;
+    private Double salario;
+    private int cargoId;
 
+    public Funcionario(){
+
+    }
+
+    public Funcionario(int id, String nome, Double salario, int cargoId) {
+        this.id = id;
+        this.nome = nome;
+        this.salario = salario;
+        this.cargoId = cargoId;
+    }
+
+    public Funcionario(String nome, Double salario, int cargoId) {
+        this.nome = nome;
+        this.salario = salario;
+        this.cargoId = cargoId;
+    }
 
     public int getId() {
         return id;
@@ -24,11 +40,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public double getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 
@@ -38,5 +54,15 @@ public class Funcionario {
 
     public void setCargoId(int cargoId) {
         this.cargoId = cargoId;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", salario=" + salario +
+                ", cargoId=" + cargoId +
+                '}';
     }
 }

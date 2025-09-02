@@ -5,10 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-class FuncionarioDAO {
+public class FuncionarioDAO {
 
 
-   static Connection getConexao() {
+   static Connection getConexao() throws DAOException{
 
         try {
             String desabilitaSSl = "useSSL=false";
